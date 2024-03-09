@@ -1,13 +1,29 @@
 @extends('layouts.admin')
 
 @section('admin_content')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css" />
+{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css" /> --}}
     <div class="content-wrapper">
-        <!-- Main content -->
-        <section class="content mt-3">
+
+        <section class="content-header">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-12 mt-3">
+                    <div class="col-sm-6 mb-2">
+                        <h1>Suppliers</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Supplier</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-header bg-primary">
                                 <div class="row ">

@@ -74,7 +74,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
     Route::get('/products', [ProductController::class, 'Index'])->name('product.index');
     Route::get('/product/create', [ProductController::class, 'Create'])->name('product.create');
     Route::post('/product/product/store', [ProductController::class, 'Store'])->name('product.store');
-    Route::get('/product/edit/{id}', [ProductController::class, 'Edit']);
+    Route::get('/product/edit/{id}', [ProductController::class, 'Edit'])->name('product.edit');
     Route::post('/product/update', [ProductController::class, 'Update'])->name('product.update');
     Route::get('/product/delete/{id}', [ProductController::class, 'Destroy'])->name('product.delete');
 

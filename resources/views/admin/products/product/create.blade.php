@@ -27,7 +27,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Admin Dashboard</h1>
+                        <h1>Products</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -45,13 +45,24 @@
                 <!-- form start -->
                 <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="row">
-                        <!-- left column -->
-                        <div class="col-lg-8 col-md-8 col-sm-12">
-                            <div class="card card-primary">
-                                <div class="card-header">
+                    <div class="card card-primary">
+                        <div class="card-header ">
+                            <div class="row">
+                                <div class="col-lg-10 col-sm-12 pt-2">
                                     <h3 class="card-title">Add New Produst</h3>
                                 </div>
+                                <div class="col-lg-2 col-sm-12">
+                                    <a href="{{ route('product.index') }}" class="btn btn-light text-dark">See all</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- left column -->
+
+                        <div class="col-lg-7 col-md-7 col-sm-12">
+                            <div class="card ">
+
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <!-- general form elements -->
@@ -66,18 +77,16 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="exampleInputPassword1">Product code</label>
-                                                <input type="text" name="product_code" value="{{ old('product_code') }}"
-                                                    class="form-control" id="" placeholder="Enter Product code"
-                                                    required>
+                                                <label for="exampleInputPassword1">Product Unit</label>
+                                                <input type="text" name="product_unit" value="{{ old('product_unit') }}"
+                                                    class="form-control" id="" placeholder="Enter Product Unit">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1"> Category</label>
                                                 <select name="category_id" id="category"
-                                                    class="form-control @error('subcategory_id') is-invalid @enderror"
-                                                    required>
+                                                    class="form-control @error('subcategory_id') is-invalid @enderror">
                                                     <option value="" selected disabled>Select Once</option>
                                                     @foreach ($cats as $cat)
                                                         <option value="{{ $cat->id }}">{{ $cat->name }}
@@ -128,14 +137,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="col-lg-5 col-md-5 col-sm-12">
                             <!-- Form Element sizes -->
-                            <div class="card card-success py-5">
+                            <div class="card card-success pb-5">
                                 <div class="card-body">
-                                    <div class="form-group py-5">
-                                        <label for="thumbnail">Main Thumbnail <span class="text-danger">*</span></label><br>
-                                        <input type="file" class="dropify img" name="product_thumbnail" accept="image/*"
-                                            required>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1"> Supplier</label>
+                                            <select name="supplier_id" id="supplier_id"
+                                                class="form-control @error('supplier_id') is-invalid @enderror">
+                                                <option value="" selected disabled>Select Once</option>
+                                                @foreach ($supplier as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->supplier_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group py-3">
+                                        <label for="thumbnail">Main Thumbnail <span
+                                                class="text-danger">*</span></label><br>
+                                        <input type="file" class="dropify img" name="product_thumbnail"
+                                            accept="image/*">
                                     </div> <br>
                                 </div>
                                 <!-- /.card-body -->
@@ -156,11 +179,9 @@
 
             </div>
             </form>
-
             <!-- /.row -->
-    </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+        </section>
+        <!-- /.content -->
     </div>
 
 

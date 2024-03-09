@@ -30,11 +30,11 @@
                             <div class="card card-primary">
                                 <div class="card-header ">
                                     <div class="row">
-                                        <div class="col-lg-10 col-sm-12">
+                                        <div class="col-lg-10 col-sm-12 pt-2">
                                             <h3 class="card-title">Add New Produst</h3>
                                         </div> 
                                         <div class="col-lg-2 col-sm-12">
-                                            <a href="{{ route('supplier.index') }}" class="btn btn-light text-dark">Add new</a>
+                                            <a href="{{ route('supplier.index') }}" class="btn btn-light text-dark">See all</a>
                                         </div> 
                                     </div>
                                 </div>
