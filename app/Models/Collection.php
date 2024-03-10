@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Supplier extends Model
+class Collection extends Model
 {
     use HasFactory;
     protected $fillable = [
         'customer_id',
         'auth_id',
-        'supplier_name',
-        'phone',
-        'email',
-        'address',
+        'user_id',
+        'amount',
+        'collect',
+        'due',
+        'date',
         'month',
         'year',
-        'date',
     ];
 }

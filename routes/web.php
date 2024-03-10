@@ -9,9 +9,11 @@ use App\Http\Controllers\ExpProcessController;
 use App\Http\Controllers\FlatController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\OthersIncomeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PdfGeneratorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SupplierController;
@@ -70,6 +72,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
       Route::post('/category/update', [CategoryController::class, 'Update'])->name('category.update');
       Route::get('/category/delete/{id}', [CategoryController::class, 'Destroy'])->name('category.delete');
 
+    //    purchase route start here 
+    Route::get('/purchases', [PurchaseController::class, 'Index'])->name('purchase.index');
+    Route::get('/purchase/create', [PurchaseController::class, 'Create'])->name('purchase.create');
+    Route::post('/purchase/product/store', [PurchaseController::class, 'Store'])->name('purchase.store');
+    Route::get('/purchase/edit/{id}', [PurchaseController::class, 'Edit'])->name('purchase.edit');
+    Route::post('/purchase/update', [PurchaseController::class, 'Update'])->name('purchase.update');
+    Route::get('/purchase/delete/{id}', [PurchaseController::class, 'Destroy'])->name('purchase.delete');
+
     //    products route start here 
     Route::get('/products', [ProductController::class, 'Index'])->name('product.index');
     Route::get('/product/create', [ProductController::class, 'Create'])->name('product.create');
@@ -85,6 +95,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
     Route::get('/suppliers/edit/{id}', [SupplierController::class, 'Edit']);
     Route::post('/suppliers/update', [SupplierController::class, 'Update'])->name('supplier.update');
     Route::get('/suppliers/delete/{id}', [SupplierController::class, 'Destroy'])->name('supplier.delete');
+    //    products route start here 
+
+    //    products route start here 
+    Route::get('/payments', [PaymentController::class, 'Index'])->name('payment.index');
+    Route::get('/payment/create', [PaymentController::class, 'Create'])->name('payment.create');
+    Route::post('/payment/store', [PaymentController::class, 'Store'])->name('payment.store');
+    Route::get('/payment/edit/{id}', [PaymentController::class, 'Edit']);
+    Route::post('/payment/update', [PaymentController::class, 'Update'])->name('payment.update');
+    Route::get('/payment/delete/{id}', [PaymentController::class, 'Destroy'])->name('payment.delete');
     //    products route start here 
     //    users route 
     // Route::get('/users', [UserController::class, 'Index'])->name('users.index');

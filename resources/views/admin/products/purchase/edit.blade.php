@@ -25,12 +25,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Products</h1>
+                        <h1>Purchase</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Edit Product</li>
+                            <li class="breadcrumb-item active">Edit Purchase</li>
                         </ol>
                     </div>
                 </div>
@@ -41,16 +41,16 @@
         <section class="content">
             <div class="container-fluid">
                 <!-- form start -->
-                <form action="{{ route('product.update') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('purchase.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card card-primary">
                         <div class="card-header ">
                             <div class="row">
                                 <div class="col-lg-10 col-sm-12 pt-2">
-                                    <h3 class="card-title">Produst Edit Form</h3>
+                                    <h3 class="card-title">Purchase Edit Form</h3>
                                 </div>
                                 <div class="col-lg-2 col-sm-12">
-                                    <a href="{{ route('product.index') }}" class="btn btn-light text-dark">Cancel Edit</a>
+                                    <a href="{{ route('purchase.index') }}" class="btn btn-light text-dark">Cancel Edit</a>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Product Name</label>
                                                 <input type="text" name="product_name" class="form-control"
-                                                    value="{{ $product->product_name }} " id=""
+                                                    value="{{ $purchase->product_name }}" id=""
                                                     placeholder="Enter Product name" required>
                                             </div>
                                         </div>
@@ -77,18 +77,11 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Product Code</label>
                                                 <input type="text" name="product_code" class="form-control"
-                                                    value="{{ $product->product_code }} " id=""
+                                                    value="{{ $purchase->product_code }}" id=""
                                                     placeholder="Enter Product Code" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="exampleInputPassword1">Product Unit</label>
-                                                <input type="text" name="product_unit"
-                                                    value="{{ $product->product_unit }}" class="form-control" id=""
-                                                    placeholder="Enter Product Unit">
-                                            </div>
-                                        </div>
+
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1"> Category</label>
@@ -96,50 +89,24 @@
                                                     class="form-control @error('subcategory_id') is-invalid @enderror">
                                                     <option value="" selected disabled>Select Once</option>
                                                     @foreach ($cats as $cat)
-                                                        <option value="{{ $cat->id }}"
-                                                            @if ($product->category_id == $cat->id) selected @endif>
-                                                            {{ $cat->name }}
+                                                        <option value="{{ $cat->id }}">{{ $cat->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-6">
-                                      <div class="form-group">
-                                          <label for="exampleInputEmail1"> Supplier</label>
-                                          <select name="warehouse" id="" class="form-control">
-                                              <option value="" selected disabled>Selecte once</option>
-                                              @foreach ($warehouses as $warehouse)
-                                                  <option value="{{ $warehouse->id }}">
-                                                      {{ $warehouse->warehouse_name }}</option>
-                                              @endforeach
-                                          </select>
-                                      </div>
-                                  </div> --}}
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Purchase Price</label>
-                                                <input type="text" class="form-control"
-                                                    value="{{ $product->purchase_price }}" name="purchase_price"
-                                                    id="exampleInputEmail1" placeholder="Enter purchase_price">
-                                            </div>
-                                        </div>
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Selling Price</label>
-                                                <input type="text" class="form-control"
-                                                    value="{{ $product->selling_price }}" name="selling_price"
-                                                    id="exampleInputEmail1" placeholder="Enter selling_price">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="exampleInputPassword1">Discount Price</label>
-                                                <input type="text" class="form-control"
-                                                    value="{{ $product->descount_price }}" name="descount_price"
-                                                    id="" placeholder="Enter descount_price">
+                                                <label for="exampleInputEmail1"> Supplier</label>
+                                                <select name="supplier_id" id="supplier_id"
+                                                    class="form-control @error('supplier_id') is-invalid @enderror">
+                                                    <option value="" selected disabled>Select Once</option>
+                                                    @foreach ($supplier as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->supplier_name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -148,37 +115,49 @@
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-12">
                             <!-- Form Element sizes -->
-                            <div class="card card-success pb-5">
+                            <div class="card card-success">
                                 <div class="card-body">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1"> Supplier</label>
-                                            <select name="supplier_id" id="supplier_id"
-                                                class="form-control @error('supplier_id') is-invalid @enderror">
-                                                <option value="" selected disabled>Select Once</option>
-                                                @foreach ($supplier as $item)
-                                                    <option value="{{ $item->id }}"
-                                                        @if ($product->supplier_id == $item->id) selected @endif>
-                                                        {{ $item->supplier_name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                            <label for="exampleInputPassword1">Product Unit</label>
+                                            <input type="text" name="product_unit" value="{{ $purchase->product_unit }}"
+                                                class="form-control" id="" placeholder="Enter Product Unit">
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="thumbnail">Main Thumbnail <span class="text-danger">*</span></label><br>
-                                        <input type="file" class="dropify img" name="product_thumbnail"
-                                            value="{{ $product->product_thumbnail }}" accept="image/*">
-                                        <input type="hidden" name="old_image"
-                                            value="{{ $product->product_thumbnail }}">
-                                        <div class="mt-4 ml-4">
-                                            <img src="{{ asset($product->product_thumbnail) }}" style="width: 80px "
-                                                alt="{{ $product->product_thumbnail }}">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Rate Per Unit</label>
+                                            <input type="text" name="product_unit_per_rate"
+                                                value="{{ $purchase->product_unit_per_rate }}" class="form-control"
+                                                id="" placeholder="Enter Product_unit_per_rate">
                                         </div>
-                                    </div> <br>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Purchase discount</label>
+                                            <input type="text" name="discount_rate" value="{{ $purchase->discount_rate }}"
+                                                class="form-control" id="" placeholder="Enter discount_rate">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Purchase paid</label>
+                                            <input type="text" class="form-control" value="{{ $purchase->paid }}"
+                                                name="paid" id="exampleInputEmail1" placeholder="Enter paid amount">
+                                        </div>
+                                    </div>
+                                    {{-- <div class="form-group py-3">
+                                        <label for="thumbnail">Main Thumbnail <span
+                                                class="text-danger">*</span></label><br>
+                                        <input type="file" class="dropify img" name="product_thumbnail"
+                                            accept="image/*">
+                                    </div> <br> --}}
                                 </div>
+                                <!-- /.card-body -->
                             </div>
+                            <!-- /.card -->
+                            <!-- /.card -->
                         </div>
                     </div>
                     <div class="card-footer">

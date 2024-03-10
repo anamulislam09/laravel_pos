@@ -11,25 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->integer('customer_id');
-            $table->integer('category_id');
             $table->integer('auth_id')->nullable();
             $table->integer('supplier_id')->nullable();
-            $table->string('product_name');
-            $table->string('product_slug');
             $table->string('product_code')->nullable();
-            $table->string('product_unit')->nullable();
-            $table->string('product_unit_per_rate')->nullable();
-            $table->string('total_price_without_discount')->nullable();
-            $table->string('total_price_after_discount')->nullable();
+            $table->bigInteger('amount')->default(0);
+            $table->bigInteger('paid')->default(0);
+            $table->bigInteger('due')->default(0);
+            $table->string('date');
             $table->string('month');
             $table->integer('year');
-            $table->string('date');
-            $table->string('product_thumbnail')->nullable();
             $table->timestamps();
-
         });
     }
 
@@ -38,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('payments');
     }
 };

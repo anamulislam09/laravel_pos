@@ -123,6 +123,7 @@ class AdminController extends Controller
         if (Auth::guard('admin')->user()->role == 0) {
             $data = array();
             $data['status'] = $request->status;
+            // dd($data);
             DB::table('customers')->where('id', $request->id)->update($data);
 
             $notification = array('message' => 'Customer status update successfully.', 'alert_type' => 'warning');

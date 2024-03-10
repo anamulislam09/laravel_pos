@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('suppliers', function (Blueprint $table) {
+        Schema::create('collections', function (Blueprint $table) {
             $table->id();
             $table->integer('customer_id');
-            $table->integer('auth_id');
-            $table->string('supplier_name');
-            $table->string('phone')->nullable();
-            $table->string('email')->nullable();
-            $table->text('address')->nullable();
+            $table->integer('auth_id')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->bigInteger('amount')->default(0);
+            $table->bigInteger('collect')->default(0);
+            $table->bigInteger('due')->default(0);
+            $table->string('date');
             $table->string('month');
             $table->integer('year');
-            $table->string('date');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('suppliers');
+        Schema::dropIfExists('collections');
     }
 };

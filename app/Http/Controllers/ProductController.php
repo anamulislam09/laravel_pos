@@ -73,6 +73,7 @@ class ProductController extends Controller
             'auth_id' => Auth::guard('admin')->user()->id,
             'category_id' => $request->category_id,
             'supplier_id' => $request->supplier_id,
+            'product_code' => $request->product_code,
             'product_name' => $request->product_name,
             'product_slug' => Str::slug($request->product_name, '-'),
             // 'product_code' => $request->product_code,
@@ -111,6 +112,7 @@ class ProductController extends Controller
         $data = Product::where('customer_id', Auth::guard('admin')->user()->id)->where('id', $id)->first();
         $data['category_id'] = $request->category_id;
         $data['supplier_id'] = $request->supplier_id;
+        $data['product_code'] = $request->product_code;
         $data['product_name'] = $request->product_name;
         $data['product_slug'] = Str::slug($request->product_name, '-');
         $data['product_unit'] = $request->product_unit;

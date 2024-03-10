@@ -2,16 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Purchase;
-use App\Models\Supplier;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use Yajra\DataTables\Facades\DataTables;
 
-class PurchaseController extends Controller
+class PaymentController extends Controller
 {
      // index method 
      public function index(Request $request)
@@ -19,12 +13,10 @@ class PurchaseController extends Controller
          if ($request->ajax()) {
              $imgurl = "files/product";
              $purchase = "";
-             $query = DB::table('purchases')->leftJoin('categories', 'purchases.category_id', 'categories.id')->leftJoin('suppliers', 'purchases.supplier_id', 'suppliers.id');
-             if ($request->category_id) {
-                 $query->where('purchases.category_id', $request->category_id);
-             }
+             $query = DB::table('payments')->leftJoin('suppliers', 'payments.supplier_id', 'suppliers.id');
+           
              if ($request->supplier_id) {
-                 $query->where('purchases.supplier_id', $request->supplier_id);
+                 $query->where('payments.supplier_id', $request->supplier_id);
              }
              $purchase = $query->select('purchases.*', 'categories.name', 'suppliers.supplier_name')->get();
  

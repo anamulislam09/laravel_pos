@@ -27,12 +27,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Products</h1>
+                        <h1>Purchase</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Products</li>
+                            <li class="breadcrumb-item active">Purchase</li>
                         </ol>
                     </div>
                 </div>
@@ -43,16 +43,16 @@
         <section class="content">
             <div class="container-fluid">
                 <!-- form start -->
-                <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('purchase.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card card-primary">
                         <div class="card-header ">
                             <div class="row">
                                 <div class="col-lg-10 col-sm-12 pt-2">
-                                    <h3 class="card-title">Add New Produst</h3>
+                                    <h3 class="card-title">Add New Purchase</h3>
                                 </div>
                                 <div class="col-lg-2 col-sm-12">
-                                    <a href="{{ route('product.index') }}" class="btn btn-light text-dark">See all</a>
+                                    <a href="{{ route('purchase.index') }}" class="btn btn-light text-dark">See all</a>
                                 </div>
                             </div>
                         </div>
@@ -83,13 +83,7 @@
                                                     placeholder="Enter Product Code" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="exampleInputPassword1">Product Unit</label>
-                                                <input type="text" name="product_unit" value="{{ old('product_unit') }}"
-                                                    class="form-control" id="" placeholder="Enter Product Unit">
-                                            </div>
-                                        </div>
+
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1"> Category</label>
@@ -103,42 +97,18 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-6">
+
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1"> Supplier</label>
-                                                <select name="warehouse" id="" class="form-control">
-                                                    <option value="" selected disabled>Selecte once</option>
-                                                    @foreach ($warehouses as $warehouse)
-                                                        <option value="{{ $warehouse->id }}">
-                                                            {{ $warehouse->warehouse_name }}</option>
+                                                <select name="supplier_id" id="supplier_id"
+                                                    class="form-control @error('supplier_id') is-invalid @enderror">
+                                                    <option value="" selected disabled>Select Once</option>
+                                                    @foreach ($supplier as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->supplier_name }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
-                                            </div>
-                                        </div> --}}
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Purchase Price</label>
-                                                <input type="text" class="form-control"
-                                                    value="{{ old('purchase_price') }}" name="purchase_price"
-                                                    id="exampleInputEmail1" placeholder="Enter purchase_price">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Selling Price</label>
-                                                <input type="text" class="form-control"
-                                                    value="{{ old('selling_price') }}" name="selling_price"
-                                                    id="exampleInputEmail1" placeholder="Enter selling_price">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="exampleInputPassword1">Discount Price</label>
-                                                <input type="text" class="form-control"
-                                                    value="{{ old('descount_price') }}" name="descount_price" id=""
-                                                    placeholder="Enter descount_price">
                                             </div>
                                         </div>
                                     </div>
@@ -147,27 +117,44 @@
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-12">
                             <!-- Form Element sizes -->
-                            <div class="card card-success pb-5">
+                            <div class="card card-success">
                                 <div class="card-body">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1"> Supplier</label>
-                                            <select name="supplier_id" id="supplier_id"
-                                                class="form-control @error('supplier_id') is-invalid @enderror">
-                                                <option value="" selected disabled>Select Once</option>
-                                                @foreach ($supplier as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->supplier_name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                            <label for="exampleInputPassword1">Product Unit</label>
+                                            <input type="text" name="product_unit" value="{{ old('product_unit') }}"
+                                                class="form-control" id="" placeholder="Enter Product Unit">
                                         </div>
                                     </div>
-                                    <div class="form-group py-3">
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Rate Per Unit</label>
+                                            <input type="text" name="product_unit_per_rate"
+                                                value="{{ old('product_unit_per_rate') }}" class="form-control"
+                                                id="" placeholder="Enter Product_unit_per_rate">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Purchase discount</label>
+                                            <input type="text" name="discount_rate" value="{{ old('discount_rate') }}"
+                                                class="form-control" id="" placeholder="Enter discount_rate">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Purchase paid</label>
+                                            <input type="text" class="form-control" value="{{ old('paid') }}"
+                                                name="paid" id="exampleInputEmail1" placeholder="Enter paid amount">
+                                        </div>
+                                    </div>
+                                    {{-- <div class="form-group py-3">
                                         <label for="thumbnail">Main Thumbnail <span
                                                 class="text-danger">*</span></label><br>
                                         <input type="file" class="dropify img" name="product_thumbnail"
                                             accept="image/*">
-                                    </div> <br>
+                                    </div> <br> --}}
                                 </div>
                                 <!-- /.card-body -->
                             </div>

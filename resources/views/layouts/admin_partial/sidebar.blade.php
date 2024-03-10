@@ -61,6 +61,35 @@
 
                 @if (Auth::guard('admin')->user()->role == 1)
 
+                   {{-- supplier Management Start here --}}
+                   <li
+                   class="nav-item {{ Request::routeIs('supplier.index') || Request::routeIs('supplier.create') || Request::routeIs('supplier.store') || Request::routeIs('supplier.edit') || Request::routeIs('supplier.update') ? 'menu-open' : '' }}">
+                   <a href="#" class="nav-link">
+                       <i class="nav-icon fas fa-circle"></i>
+                       <p>
+                           Suppliers
+                           <i class="right fas fa-angle-left"></i>
+                       </p>
+                   </a>
+                   <ul class="nav nav-treeview ml-3">
+                       <li class="nav-item">
+                           <a href="{{ route('supplier.create') }}"
+                               class="nav-link {{ Request::routeIs('supplier.create') ? 'active' : '' }}">
+                               <i class="far fa-dot-circle nav-icon"></i>
+                               <p>Add New Supplier</p>
+                           </a>
+                       </li>
+                       <li class="nav-item">
+                           <a href="{{ route('supplier.index') }}"
+                               class="nav-link {{ Request::routeIs('supplier.index') ? 'active' : '' }}">
+                               <i class="far fa-dot-circle nav-icon"></i>
+                               <p>All Suppliers</p>
+                           </a>
+                       </li>
+                   </ul>
+               </li>
+               {{-- supplier Management ends here --}}
+
                     {{-- CAtegory Management ends here --}}
                     <li
                         class="nav-item {{ Request::routeIs('category.index') || Request::routeIs('category.create') || Request::routeIs('category.store') || Request::routeIs('category.edit') || Request::routeIs('category.update') ? 'menu-open' : '' }}">
@@ -89,6 +118,36 @@
                         </ul>
                     </li>
                     {{-- Category Management ends here --}}
+
+                    {{-- Purchase Management Start here --}}
+                    <li
+                        class="nav-item {{ Request::routeIs('purchase.index') || Request::routeIs('purchase.create') || Request::routeIs('purchase.store') || Request::routeIs('purchase.edit') || Request::routeIs('purchase.update') ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-circle"></i>
+                            <p>
+                                Purchases
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ml-3">
+                            <li class="nav-item">
+                                <a href="{{ route('purchase.create') }}"
+                                    class="nav-link {{ Request::routeIs('purchase.create') ? 'active' : '' }}">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>Add New purchase</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('purchase.index') }}"
+                                    class="nav-link {{ Request::routeIs('purchase.index') ? 'active' : '' }}">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>All Purchas Products</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{-- Purchase Management ends here --}}
+
 
                     {{-- Product Management Start here --}}
                     <li
@@ -119,34 +178,36 @@
                     </li>
                     {{-- Product Management ends here --}}
 
-                    {{-- supplier Management Start here --}}
+                    {{-- Product Management Start here --}}
                     <li
-                        class="nav-item {{ Request::routeIs('supplier.index') || Request::routeIs('supplier.create') || Request::routeIs('supplier.store') || Request::routeIs('supplier.edit') || Request::routeIs('supplier.update') ? 'menu-open' : '' }}">
+                        class="nav-item {{ Request::routeIs('product.index') || Request::routeIs('product.create') || Request::routeIs('product.store') || Request::routeIs('product.edit') || Request::routeIs('product.update') ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-circle"></i>
                             <p>
-                                Suppliers
+                                Payments
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview ml-3">
                             <li class="nav-item">
-                                <a href="{{ route('supplier.create') }}"
-                                    class="nav-link {{ Request::routeIs('supplier.create') ? 'active' : '' }}">
+                                <a href="{{ route('product.create') }}"
+                                    class="nav-link {{ Request::routeIs('product.create') ? 'active' : '' }}">
                                     <i class="far fa-dot-circle nav-icon"></i>
-                                    <p>Add New Supplier</p>
+                                    <p>Add New Payment</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('supplier.index') }}"
-                                    class="nav-link {{ Request::routeIs('supplier.index') ? 'active' : '' }}">
+                                <a href="{{ route('product.index') }}"
+                                    class="nav-link {{ Request::routeIs('product.index') ? 'active' : '' }}">
                                     <i class="far fa-dot-circle nav-icon"></i>
-                                    <p>All Suppliers</p>
+                                    <p>All Payment</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    {{-- supplier Management ends here --}}
+                    {{-- Product Management ends here --}}
+
+                  
 
                 @endif
             </ul>

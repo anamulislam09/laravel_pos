@@ -5,23 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Purchase extends Model
+class Sale extends Model
 {
     use HasFactory;
     protected $fillable = [
         'customer_id',
         'auth_id',
-        'supplier_id',
+        'user_id',
         'category_id',
         'product_name',
         'product_code',
         'product_unit',
         'product_unit_per_rate',
         'total_price_without_discount',
-        'discount',
-        'discount_price',
         'total_price_after_discount',
-        'paid',
+        'collect',
         'due',
         'date',
         'month',
