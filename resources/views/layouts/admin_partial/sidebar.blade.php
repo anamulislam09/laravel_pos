@@ -119,6 +119,35 @@
                     </li>
                     {{-- Category Management ends here --}}
 
+                     {{-- Product Management Start here --}}
+                     <li
+                     class="nav-item {{ Request::routeIs('product.index') || Request::routeIs('product.create') || Request::routeIs('product.store') || Request::routeIs('product.edit') || Request::routeIs('product.update') ? 'menu-open' : '' }}">
+                     <a href="#" class="nav-link">
+                         <i class="nav-icon fas fa-circle"></i>
+                         <p>
+                             Products
+                             <i class="right fas fa-angle-left"></i>
+                         </p>
+                     </a>
+                     <ul class="nav nav-treeview ml-3">
+                         <li class="nav-item">
+                             <a href="{{ route('product.create') }}"
+                                 class="nav-link {{ Request::routeIs('product.create') ? 'active' : '' }}">
+                                 <i class="far fa-dot-circle nav-icon"></i>
+                                 <p>Add New Products</p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="{{ route('product.index') }}"
+                                 class="nav-link {{ Request::routeIs('product.index') ? 'active' : '' }}">
+                                 <i class="far fa-dot-circle nav-icon"></i>
+                                 <p>All Products</p>
+                             </a>
+                         </li>
+                     </ul>
+                 </li>
+                 {{-- Product Management ends here --}}
+
                     {{-- Purchase Management Start here --}}
                     <li
                         class="nav-item {{ Request::routeIs('purchase.index') || Request::routeIs('purchase.create') || Request::routeIs('purchase.store') || Request::routeIs('purchase.edit') || Request::routeIs('purchase.update') ? 'menu-open' : '' }}">
@@ -148,35 +177,6 @@
                     </li>
                     {{-- Purchase Management ends here --}}
 
-
-                    {{-- Product Management Start here --}}
-                    <li
-                        class="nav-item {{ Request::routeIs('product.index') || Request::routeIs('product.create') || Request::routeIs('product.store') || Request::routeIs('product.edit') || Request::routeIs('product.update') ? 'menu-open' : '' }}">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-circle"></i>
-                            <p>
-                                Products
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview ml-3">
-                            <li class="nav-item">
-                                <a href="{{ route('product.create') }}"
-                                    class="nav-link {{ Request::routeIs('product.create') ? 'active' : '' }}">
-                                    <i class="far fa-dot-circle nav-icon"></i>
-                                    <p>Add New Products</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('product.index') }}"
-                                    class="nav-link {{ Request::routeIs('product.index') ? 'active' : '' }}">
-                                    <i class="far fa-dot-circle nav-icon"></i>
-                                    <p>All Products</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    {{-- Product Management ends here --}}
 
                     {{-- Product Management Start here --}}
                     <li

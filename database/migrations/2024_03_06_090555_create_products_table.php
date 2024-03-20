@@ -18,16 +18,12 @@ return new class extends Migration
             $table->integer('auth_id')->nullable();
             $table->integer('supplier_id')->nullable();
             $table->string('product_name');
-            $table->string('product_slug');
             $table->string('product_code')->nullable();
             $table->string('product_unit')->nullable();
             $table->string('product_unit_per_rate')->nullable();
-            $table->string('total_price_without_discount')->nullable();
-            $table->string('total_price_after_discount')->nullable();
             $table->string('month');
             $table->integer('year');
             $table->string('date');
-            $table->string('product_thumbnail')->nullable();
             $table->timestamps();
 
         });

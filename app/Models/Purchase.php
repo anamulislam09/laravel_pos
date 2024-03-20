@@ -13,6 +13,7 @@ class Purchase extends Model
         'auth_id',
         'supplier_id',
         'category_id',
+        'purchase_invoice_id',
         'product_name',
         'product_code',
         'product_unit',

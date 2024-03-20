@@ -103,33 +103,27 @@
           },
           {
             data: "product_name",
-            title: "Product_Name ",
+            title: "Product Name ",
+            searchable: true
+          },
+          {
+            data: "product_code",
+            title: "Product Code",
             searchable: true
           },
           {
             data: "name",
-            title: "Category_Name",
+            title: "Category Name",
             searchable: true
           },
           {
             data: "supplier_name",
-            title: "Supplier_Name",
+            title: "Supplier Name",
             searchable: true
           },
-          // // show image using yajra datatable
-          // {
-          //   "name": "product_thumbnail",
-          //   "data": "product_thumbnail",
-          //   "render": function(data, type, full, meta) {
-          //     return "<img src=\"" + data + "\" height=\"50\"/>";
-          //   },
-          //   "title": "Thumbnail",
-          //   "orderable": true,
-          //   "searchable": true
-          // },
           {
             data: "product_unit",
-            title: "Product_Unit",
+            title: "Product Unit",
             searchable: true
           },
           {
@@ -144,12 +138,12 @@
           },
           {
             data: "discount",
-            title: "Discount_Rate",
+            title: "Discount Rate",
             searchable: true
           },
           {
             data: "discount_price",
-            title: "Discount_Price",
+            title: "Discount Price",
             searchable: true
           },
           {

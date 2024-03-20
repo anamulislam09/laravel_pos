@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('auth_id')->nullable();
             $table->integer('supplier_id')->nullable();
             $table->integer('category_id');
+            $table->string('purchase_invoice_id');
             $table->string('product_name');
             $table->string('product_code')->nullable();
             $table->integer('product_unit')->nullable();
