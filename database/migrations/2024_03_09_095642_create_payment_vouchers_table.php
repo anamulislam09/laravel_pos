@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('payment_vouchers', function (Blueprint $table) {
             $table->id();
-            $table->string('invoice_id');
+            $table->string('purchase_voucher_id');
             $table->integer('customer_id');
             $table->integer('auth_id')->nullable();
             $table->integer('supplier_id')->nullable();
             $table->bigInteger('amount')->default(0);
             $table->bigInteger('paid')->default(0);
             $table->bigInteger('due')->default(0);
+            $table->integer('status')->default(0);
             $table->string('date');
             $table->string('month');
             $table->integer('year');

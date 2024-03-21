@@ -16,11 +16,9 @@ return new class extends Migration
             $table->integer('customer_id');
             $table->integer('auth_id')->nullable();
             $table->integer('supplier_id')->nullable();
-            $table->integer('category_id');
-            $table->string('purchase_invoice_id');
-            $table->string('product_name');
-            $table->string('product_code')->nullable();
-            $table->integer('product_unit')->nullable();
+            $table->string('purchase_voucher_id');
+            $table->string('product_id');
+            $table->integer('product_quantity')->nullable();
             $table->bigInteger('product_unit_per_rate')->nullable();
             $table->bigInteger('total_price_without_discount')->nullable();
             $table->integer('discount')->nullable();
