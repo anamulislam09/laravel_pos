@@ -12,7 +12,7 @@ class Purchase extends Model
         'customer_id',
         'auth_id',
         'supplier_id',
-        'purchase_invoice_id',
+        'purchase_voucher_id',
         'product_id',
         'product_quantity',
         'product_unit_per_rate',
@@ -21,9 +21,11 @@ class Purchase extends Model
         'discount_price',
         'total_price_after_discount',
         'paid',
+        'product_thumbnail',
         'due',
         'date',
         'month',
         'year',
+
     ];
 }

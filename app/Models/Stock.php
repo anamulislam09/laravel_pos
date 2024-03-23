@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PaymentVoucher extends Model
+class Stock extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'purchase_voucher_id',
         'customer_id',
         'auth_id',
         'supplier_id',
-        'amount',
-        'paid',
-        'due',
-        'status',
+        'product_id',
+        'stock_quantity',
+        'stock_unit_price',
+        'stock_history_status',
         'date',
         'month',
         'year',

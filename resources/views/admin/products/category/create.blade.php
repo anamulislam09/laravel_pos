@@ -40,7 +40,7 @@
                                     <div class="mb-3 mt-3">
                                         <label for="name" class="form-label">Product Category:</label>
                                         <input type="text" class="form-control" value="{{ old('name') }}"
-                                            name="name" id="name" placeholder="Enter Product Category">
+                                            name="name" id="name" placeholder="Enter Product Category" required>
                                     </div>
                             </div>
                             <!-- /.card-body -->

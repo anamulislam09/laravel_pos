@@ -16,12 +16,13 @@ return new class extends Migration
             $table->integer('customer_id');
             $table->integer('auth_id')->nullable();
             $table->integer('user_id')->nullable();
-            $table->bigInteger('amount')->default(0);
-            $table->bigInteger('collect')->default(0);
-            $table->bigInteger('due')->default(0);
+            $table->string('sales_collection_id')->default(0);
+            $table->string('sales_invoice_id')->default(0);
+            $table->decimal('amount', 13, 2)->default(0);
             $table->string('date');
             $table->string('month');
             $table->integer('year');
+            $table->integer('collection_status');
             $table->timestamps();
         });
     }

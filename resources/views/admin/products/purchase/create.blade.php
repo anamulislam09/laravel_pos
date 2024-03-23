@@ -59,36 +59,15 @@
                     </div>
                     <div class="row">
                         <!-- left column -->
-
                         <div class="col-lg-7 col-md-7 col-sm-12">
                             <div class="card ">
-
-                                <!-- /.card-header -->
                                 <div class="card-body">
-                                    <!-- general form elements -->
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Product Name</label>
-                                                <input type="text" name="product_name" class="form-control"
-                                                    value="{{ old('product_name') }}" id=""
-                                                    placeholder="Enter Product name" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Product Code</label>
-                                                <input type="text" name="product_code" class="form-control"
-                                                    value="{{ old('product_code') }}" id=""
-                                                    placeholder="Enter Product Code" required>
-                                            </div>
-                                        </div>
-
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1"> Category</label>
                                                 <select name="category_id" id="category"
-                                                    class="form-control @error('subcategory_id') is-invalid @enderror">
+                                                    class="form-control @error('category_id') is-invalid @enderror">
                                                     <option value="" selected disabled>Select Once</option>
                                                     @foreach ($cats as $cat)
                                                         <option value="{{ $cat->id }}">{{ $cat->name }}
@@ -97,7 +76,24 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Product Name</label>
+                                                <select name="product_id" id="product"
+                                                    class="form-control @error('product_id') is-invalid @enderror" required>
+                                                    <option value="" selected disabled>Select Once</option>
 
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Product Quantity</label>
+                                                <input type="text" name="product_quantity"
+                                                    value="{{ old('product_quantity') }}" class="form-control"
+                                                    id="" placeholder="Enter Product quantity">
+                                            </div>
+                                        </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1"> Supplier</label>
@@ -111,6 +107,14 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Product Quantity Per Rate</label>
+                                                <input type="text" name="product_unit_per_rate"
+                                                    value="{{ old('product_unit_per_rate') }}" class="form-control" id=""
+                                                    placeholder="Enter Rate Per quantity">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -119,70 +123,45 @@
                             <!-- Form Element sizes -->
                             <div class="card card-success">
                                 <div class="card-body">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Product Unit</label>
-                                            <input type="text" name="product_unit" value="{{ old('product_unit') }}"
-                                                class="form-control" id="" placeholder="Enter Product Unit">
-                                        </div>
-                                    </div>
+                                    
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Rate Per Unit</label>
+                                            <label for="exampleInputPassword1">Discount Rate</label>
                                             <input type="text" name="product_unit_per_rate"
                                                 value="{{ old('product_unit_per_rate') }}" class="form-control"
-                                                id="" placeholder="Enter Product_unit_per_rate">
+                                                id="" placeholder="Enter Discount Rate">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Purchase discount</label>
-                                            <input type="text" name="discount_rate" value="{{ old('discount_rate') }}"
-                                                class="form-control" id="" placeholder="Enter discount_rate">
+                                            <label for="exampleInputPassword1">Paid Amount</label>
+                                            <input type="text" name="paid" value="{{ old('paid') }}"
+                                                class="form-control" id="" placeholder="Enter Amount">
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Purchase paid</label>
-                                            <input type="text" class="form-control" value="{{ old('paid') }}"
-                                                name="paid" id="exampleInputEmail1" placeholder="Enter paid amount">
-                                        </div>
-                                    </div>
-                                    {{-- <div class="form-group py-3">
+                                    <div class="form-group pt-2">
                                         <label for="thumbnail">Main Thumbnail <span
                                                 class="text-danger">*</span></label><br>
                                         <input type="file" class="dropify img" name="product_thumbnail"
                                             accept="image/*">
-                                    </div> <br> --}}
+                                    </div>
                                 </div>
-                                <!-- /.card-body -->
                             </div>
-                            <!-- /.card -->
-                            <!-- /.card -->
                         </div>
                     </div>
-
-                    <!--/form left ends here-->
-
-                    <!-- right column -->
-                    <!--/.col (right) -->
-
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
-
             </div>
             </form>
-            <!-- /.row -->
         </section>
-        <!-- /.content -->
     </div>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.js"></script>
-    <script src="{{ asset('backend/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+    <script src="{{ asset('admin/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.6.0/bootstrap-tagsinput.min.js"></script>
 
     {{-- CHECKBOX  --}}
@@ -227,31 +206,31 @@
             // get subcategory 
             $("#category").change(function() {
                 let categoryid = $(this).val();
-                $("#subcategory").html('<option value="">Select One</option>')
+                $("#product").html('<option value="">Select One</option>')
                 $.ajax({
-                    url: '/product/subcategory',
+                    url: '/admin/product',
                     type: 'post',
                     data: 'categoryid=' + categoryid + '&_token={{ csrf_token() }}',
                     success: function(result) {
-                        $('#subcategory').html(result);
+                        $('#product').html(result);
                     }
                 })
             })
             //   get childcategory 
-            $("#subcategory").change(function() {
-                let childCatId = $(this).val();
-                $("#childcategory").html('<option value="">Select One</option>')
-                $.ajax({
-                    url: '/product/childcategory',
-                    type: 'post',
-                    data: 'childCatid=' + childCatId + '&_token={{ csrf_token() }}',
-                    success: function(result) {
-                        console.log(result);
+            // $("#subcategory").change(function() {
+            //     let childCatId = $(this).val();
+            //     $("#childcategory").html('<option value="">Select One</option>')
+            //     $.ajax({
+            //         url: '/product/childcategory',
+            //         type: 'post',
+            //         data: 'childCatid=' + childCatId + '&_token={{ csrf_token() }}',
+            //         success: function(result) {
+            //             console.log(result);
 
-                        $('#childcategory').html(result);
-                    }
-                })
-            })
+            //             $('#childcategory').html(result);
+            //         }
+            //     })
+            // })
 
 
         });

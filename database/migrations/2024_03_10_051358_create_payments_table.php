@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('customer_id');
             $table->integer('auth_id')->nullable();
             $table->integer('supplier_id')->nullable();
-            $table->bigInteger('amount')->default(0);
+            $table->decimal('amount', 13, 2)->default(0);
             $table->string('date');
             $table->string('month');
             $table->integer('year');

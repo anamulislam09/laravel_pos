@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sale extends Model
+class SalesInvoice extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -13,13 +13,15 @@ class Sale extends Model
         'auth_id',
         'user_id',
         'sales_invoice_id',
-        'category_id',
         'product_id',
-        'sales_item_quantity',
-        'sales_item_rate',
-        'sales_item_discount',
-        'amount',
-        'amount_after_discount',
+        'sales_total_amount',
+        'sales_invoice_discount',
+        'sales_total_discount',
+        'sales_amount_collection',
+        'sales_amount_due',
+        'sales_advance_collection',
+        'sales_collection_type',
+        'sales_collection_status',
         'date',
         'month',
         'year',

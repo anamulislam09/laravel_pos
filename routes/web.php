@@ -81,12 +81,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
     Route::get('/purchase/delete/{id}', [PurchaseController::class, 'Destroy'])->name('purchase.delete');
 
     //    products route start here 
+    Route::post('/product', [PurchaseController::class, 'GetProduct']); // get product using ajex 
+
     Route::get('/products', [ProductController::class, 'Index'])->name('product.index');
     Route::get('/product/create', [ProductController::class, 'Create'])->name('product.create');
     Route::post('/product/product/store', [ProductController::class, 'Store'])->name('product.store');
-    Route::get('/product/edit/{id}', [ProductController::class, 'Edit'])->name('product.edit');
+    Route::get('/product/edit/{product_id}', [ProductController::class, 'Edit'])->name('product.edit');
     Route::post('/product/update', [ProductController::class, 'Update'])->name('product.update');
-    Route::get('/product/delete/{id}', [ProductController::class, 'Destroy'])->name('product.delete');
+    Route::get('/product/delete/{product_id}', [ProductController::class, 'Destroy'])->name('product.delete');
 
     //    products route start here 
     Route::get('/suppliers', [SupplierController::class, 'Index'])->name('supplier.index');

@@ -60,7 +60,7 @@
                     <div class="row">
                         <!-- left column -->
 
-                        <div class="col-lg-7 col-md-7 col-sm-12">
+                        <div class="col-lg-12 col-sm-12 ">
                             <div class="card ">
 
                                 <!-- /.card-header -->
@@ -75,21 +75,21 @@
                                                     placeholder="Enter Product name" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        {{-- <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Product Code</label>
                                                 <input type="text" name="product_code" class="form-control"
                                                     value="{{ old('product_code') }}" id=""
                                                     placeholder="Enter Product Code" required>
                                             </div>
-                                        </div>
-                                        <div class="col-md-12">
+                                        </div> --}}
+                                        {{-- <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">Product Unit</label>
                                                 <input type="text" name="product_unit" value="{{ old('product_unit') }}"
                                                     class="form-control" id="" placeholder="Enter Product Unit">
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1"> Category</label>
@@ -103,19 +103,18 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1"> Supplier</label>
-                                                <select name="warehouse" id="" class="form-control">
+                                                <label for="exampleInputEmail1"> Quantity Status</label>
+                                                <select name="quantity_status" id="" class="form-control" required>
                                                     <option value="" selected disabled>Selecte once</option>
-                                                    @foreach ($warehouses as $warehouse)
-                                                        <option value="{{ $warehouse->id }}">
-                                                            {{ $warehouse->warehouse_name }}</option>
-                                                    @endforeach
+                                                   <option value="KG">KG</option>
+                                                   <option value="Litter">Litter</option>
+                                                   <option value="Pices">Pices</option>
                                                 </select>
                                             </div>
-                                        </div> --}}
-                                        <div class="col-md-12">
+                                        </div>
+                                        {{-- <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Purchase Price</label>
                                                 <input type="text" class="form-control"
@@ -140,12 +139,12 @@
                                                     value="{{ old('descount_price') }}" name="descount_price" id=""
                                                     placeholder="Enter descount_price">
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-5 col-md-5 col-sm-12">
+                        {{-- <div class="col-lg-5 col-md-5 col-sm-12">
                             <!-- Form Element sizes -->
                             <div class="card card-success pb-5">
                                 <div class="card-body">
@@ -161,19 +160,18 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>
-                                    <div class="form-group py-3">
+                                    </div>  <div class="form-group py-3">
                                         <label for="thumbnail">Main Thumbnail <span
                                                 class="text-danger">*</span></label><br>
                                         <input type="file" class="dropify img" name="product_thumbnail"
                                             accept="image/*">
-                                    </div> <br>
+                                    </div> <br> 
                                 </div>
                                 <!-- /.card-body -->
                             </div>
                             <!-- /.card -->
                             <!-- /.card -->
-                        </div>
+                        </div> --}}
                     </div>
 
                     <!--/form left ends here-->

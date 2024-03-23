@@ -97,46 +97,14 @@
             searchable: true
           },
           {
-            data: "supplier_name",
-            title: "Supplier_Name",
-            searchable: true
-          },
-          // show image using yajra datatable
-          {
-            "name": "product_thumbnail",
-            "data": "product_thumbnail",
+            data: "quantity_status",
             "render": function(data, type, full, meta) {
-              return "<img src=\"" + data + "\" height=\"50\"/>";
+              // return "<span class=\"" + data + "\" height=\"50\"/>";
+              return "<span class=\"badge badge-warning\">"+ data + "</span>";
             },
-            "title": "Thumbnail",
-            "orderable": true,
-            "searchable": true
-          },
-          {
-            data: "product_unit",
-            title: "Product_Unit",
+            title: "Quantity Status",
             searchable: true
           },
-          {
-            data: "purchase_price",
-            title: "Purchase_Price",
-            searchable: true
-          },
-          {
-            data: "selling_price",
-            title: "Selling_Price",
-            searchable: true
-          },
-          {
-            data: "descount_price",
-            title: "Descount_Price",
-            searchable: true
-          },
-          // {
-          //   data: "status",
-          //   title: "status",
-          //   searchable: true
-          // },
           {
             data: "action",
             title: "action",

@@ -12,11 +12,12 @@ class Collection extends Model
         'customer_id',
         'auth_id',
         'user_id',
+        'sales_collection_id',
+        'sales_invoice_id',
         'amount',
-        'collect',
-        'due',
         'date',
         'month',
         'year',
+        'collection_status',
     ];
 }

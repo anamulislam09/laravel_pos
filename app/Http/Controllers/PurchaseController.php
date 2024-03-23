@@ -58,9 +58,11 @@ class PurchaseController extends Controller
 
     public function store(Request $request)
     {
+        $product = Product::where('customer_id', Auth::guard('admin')->user()->id)->where('product_id', $request->product_id)->first();
+
         $total_amount = $request->product_unit * $request->product_unit_per_rate;
         $discount_amount = ($total_amount * $request->discount_rate) / 100;
-        $total_amount_after_discount = $total_amount - $discount_amount;
+        $total_amount_after_discount = $total_amount - $discount_amount;    
 
         $v_id = 1;
         $isExist = Purchase::where('customer_id', Auth::guard('admin')->user()->id)->exists();
@@ -68,7 +70,7 @@ class PurchaseController extends Controller
             $purchase_invoice_id = Purchase::where('customer_id', Auth::guard('admin')->user()->id)->max('purchase_invoice_id');
             $data['purchase_invoice_id'] = $this->formatSrl(++$purchase_invoice_id);
         } else {
-            $data['purchase_invoice_id'] = $this->formatSrl($v_id);
+            $data['purchase_invoice_id'] ='PINV-' . $this->formatSrl($v_id);
         }
         $data['customer_id'] = Auth::guard('admin')->user()->id;
         $data['auth_id'] = Auth::guard('admin')->user()->id;
@@ -121,6 +123,19 @@ class PurchaseController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+
+     // insert sub category category using ajax request
+     public function GetProduct(Request $request)
+     {
+         $categoryid = $request->post('categoryid');
+        //  dd($categoryid);
+         $products = DB::table('products')->where('customer_id', Auth::guard('admin')->user()->id)->where('category_id', $categoryid)->orderBy('product_name', 'ASC')->get();
+         $html = '<option value="" selected disabled>Select One</option>';
+         foreach ($products as $list) {
+             $html .= '<option value="' . $list->product_id . '">' . $list->product_name . '</option>';
+         }
+         echo $html;
+     }
 
     // unique id serial function
     public function formatSrl($srl)
