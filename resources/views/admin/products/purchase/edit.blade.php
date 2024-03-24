@@ -43,6 +43,7 @@
                 <!-- form start -->
                 <form action="{{ route('purchase.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="purchase_voucher_id" value="{{$purchase->purchase_voucher_id}}">
                     <div class="card card-primary">
                         <div class="card-header ">
                             <div class="row">
@@ -67,35 +68,38 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Product Name</label>
-                                                <input type="text" name="product_name" class="form-control"
-                                                    value="{{ $purchase->product_name }}" id=""
-                                                    placeholder="Enter Product name" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Product Code</label>
-                                                <input type="text" name="product_code" class="form-control"
-                                                    value="{{ $purchase->product_code }}" id=""
-                                                    placeholder="Enter Product Code" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <div class="form-group">
                                                 <label for="exampleInputEmail1"> Category</label>
                                                 <select name="category_id" id="category"
-                                                    class="form-control @error('subcategory_id') is-invalid @enderror">
+                                                    class="form-control @error('category_id') is-invalid @enderror">
                                                     <option value="" selected disabled>Select Once</option>
                                                     @foreach ($cats as $cat)
-                                                        <option value="{{ $cat->id }}">{{ $cat->name }}
+                                                        <option value="{{ $cat->id }}" @if ($cat->id == $purchase->category_id) selected @endif>{{ $cat->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
-
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Product Name</label>
+                                                <select name="product_id" id="product"
+                                                    class="form-control @error('product_id') is-invalid @enderror"
+                                                    required>
+                                                    @foreach ($products as $product)
+                                                    <option value="{{ $product->product_id }}" @if ($product->product_id == $purchase->product_id) selected @endif>{{ $product->product_name }}
+                                                    </option>
+                                                @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Product Quantity</label>
+                                                <input type="text" name="product_quantity"
+                                                    value="{{ $purchase->product_quantity }}" class="form-control"
+                                                    id="" placeholder="Enter Product quantity">
+                                            </div>
+                                        </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1"> Supplier</label>
@@ -103,10 +107,18 @@
                                                     class="form-control @error('supplier_id') is-invalid @enderror">
                                                     <option value="" selected disabled>Select Once</option>
                                                     @foreach ($supplier as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->supplier_name }}
+                                                        <option value="{{ $item->id }}" @if ($item->id == $purchase->supplier_id) selected @endif>{{ $item->supplier_name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Product Quantity Per Rate</label>
+                                                <input type="text" name="product_unit_per_rate"
+                                                    value="{{$purchase->product_unit_per_rate}}" class="form-control"
+                                                    id="" placeholder="Enter Rate Per quantity">
                                             </div>
                                         </div>
                                     </div>
@@ -119,40 +131,23 @@
                                 <div class="card-body">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Product Unit</label>
-                                            <input type="text" name="product_unit" value="{{ $purchase->product_unit }}"
-                                                class="form-control" id="" placeholder="Enter Product Unit">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Rate Per Unit</label>
-                                            <input type="text" name="product_unit_per_rate"
-                                                value="{{ $purchase->product_unit_per_rate }}" class="form-control"
-                                                id="" placeholder="Enter Product_unit_per_rate">
+                                            <label for="exampleInputPassword1">Discount Rate</label>
+                                            <input type="text" name="discount_rate" value="{{$purchase->discount }} "
+                                                class="form-control" id="" placeholder="Enter Discount Rate">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Purchase discount</label>
-                                            <input type="text" name="discount_rate" value="{{ $purchase->discount_rate }}"
-                                                class="form-control" id="" placeholder="Enter discount_rate">
+                                            <label for="exampleInputPassword1">Paid Amount</label>
+                                            <input type="text" name="paid" value="{{ $purchase->paid}}"
+                                                class="form-control" id="" placeholder="Enter Amount">
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Purchase paid</label>
-                                            <input type="text" class="form-control" value="{{ $purchase->paid }}"
-                                                name="paid" id="exampleInputEmail1" placeholder="Enter paid amount">
-                                        </div>
-                                    </div>
-                                    {{-- <div class="form-group py-3">
-                                        <label for="thumbnail">Main Thumbnail <span
-                                                class="text-danger">*</span></label><br>
+                                    <div class="form-group pt-2">
+                                        <label for="thumbnail">Main Thumbnail <span class="text-danger">*</span></label><br>
                                         <input type="file" class="dropify img" name="product_thumbnail"
                                             accept="image/*">
-                                    </div> <br> --}}
+                                    </div>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -181,6 +176,24 @@
         $('.dropify').dropify(); //dropify image 
         $("input[data-bootstrap-switch]").each(function() {
             $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        });
+    </script>
+     <script>
+        $(document).ready(function() {
+            // get subcategory 
+            $("#category").change(function() {
+                let categoryid = $(this).val();
+                $("#product").html('<option value="">Select One</option>')
+                $.ajax({
+                    url: '/admin/product',
+                    type: 'post',
+                    data: 'categoryid=' + categoryid + '&_token={{ csrf_token() }}',
+                    success: function(result) {
+                        $('#product').html(result);
+                    }
+                })
+            })
+           
         });
     </script>
 @endsection

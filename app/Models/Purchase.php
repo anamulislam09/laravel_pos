@@ -13,6 +13,7 @@ class Purchase extends Model
         'auth_id',
         'supplier_id',
         'purchase_voucher_id',
+        'category_id',
         'product_id',
         'product_quantity',
         'product_unit_per_rate',

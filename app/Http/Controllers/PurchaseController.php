@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\PaymentVoucher;
 use App\Models\Product;
 use App\Models\Purchase;
 use App\Models\Supplier;
@@ -20,27 +21,31 @@ class PurchaseController extends Controller
         if ($request->ajax()) {
             $imgurl = "files/product";
             $purchase = "";
-            $query = DB::table('purchases')->leftJoin('categories', 'purchases.category_id', 'categories.id')->leftJoin('suppliers', 'purchases.supplier_id', 'suppliers.id');
+            $query = DB::table('purchases')->leftJoin('categories', 'purchases.category_id', 'categories.id')->leftJoin('products', 'purchases.product_id', 'products.product_id')->leftJoin('suppliers', 'purchases.supplier_id', 'suppliers.id');
             if ($request->category_id) {
                 $query->where('purchases.category_id', $request->category_id);
+            }
+            if ($request->product_id) {
+                $query->where('products.product_id', $request->product_id);
             }
             if ($request->supplier_id) {
                 $query->where('purchases.supplier_id', $request->supplier_id);
             }
-            $purchase = $query->select('purchases.*', 'categories.name', 'suppliers.supplier_name')->get();
+            $purchase = $query->select('purchases.*', 'categories.name', 'products.product_name', 'suppliers.supplier_name')->get();
 
             return DataTables::of($purchase)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $actionbtn = ' 
-                     <a href="' . route('purchase.edit', [$row->id]) . '" class="btn btn-sm btn-info" ><i class="fas fa-edit"></i></a> 
-                     <a href="" class="btn btn-sm btn-primary" ><i class="fas fa-eye"></i></a> 
-                      <a href="' . route('purchase.delete', [$row->id]) . '"  class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>';
+                     <a href="' . route('purchase.edit', [$row->id]) . '" class="btn btn-sm btn-info" ><i class="fas fa-edit"></i></a> ';
                     return $actionbtn;
                 })
                 ->rawColumns(['action', 'name'])
                 ->make(true);
         }
+
+         //  <a href="" class="btn btn-sm btn-primary" ><i class="fas fa-eye"></i></a> 
+                    //   <a href="' . route('purchase.delete', [$row->id]) . '"  class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
 
         $category = Category::where('customer_id', Auth::guard('admin')->user()->id)->get();
         $supplier = Supplier::where('customer_id', Auth::guard('admin')->user()->id)->get();
@@ -60,25 +65,25 @@ class PurchaseController extends Controller
     {
         $product = Product::where('customer_id', Auth::guard('admin')->user()->id)->where('product_id', $request->product_id)->first();
 
-        $total_amount = $request->product_unit * $request->product_unit_per_rate;
+        $total_amount = $request->product_quantity * $request->product_unit_per_rate;
         $discount_amount = ($total_amount * $request->discount_rate) / 100;
         $total_amount_after_discount = $total_amount - $discount_amount;    
 
         $v_id = 1;
         $isExist = Purchase::where('customer_id', Auth::guard('admin')->user()->id)->exists();
         if ($isExist) {
-            $purchase_invoice_id = Purchase::where('customer_id', Auth::guard('admin')->user()->id)->max('purchase_invoice_id');
-            $data['purchase_invoice_id'] = $this->formatSrl(++$purchase_invoice_id);
+            $purchase_voucher_id = Purchase::where('customer_id', Auth::guard('admin')->user()->id)->max('purchase_voucher_id');
+            $data['purchase_voucher_id'] = $this->formatSrl(++$purchase_voucher_id);
         } else {
-            $data['purchase_invoice_id'] ='PINV-' . $this->formatSrl($v_id);
+            $data['purchase_voucher_id'] ='PINV-' . $this->formatSrl($v_id);
         }
         $data['customer_id'] = Auth::guard('admin')->user()->id;
         $data['auth_id'] = Auth::guard('admin')->user()->id;
         $data['category_id'] = $request->category_id;
         $data['supplier_id'] = $request->supplier_id;
-        $data['product_code'] = $request->product_code;
-        $data['product_name'] = $request->product_name;
-        $data['product_unit'] = $request->product_unit;
+        $data['category_id'] = $request->category_id;
+        $data['product_id'] = $request->product_id;
+        $data['product_quantity'] = $request->product_quantity;
         $data['product_unit_per_rate'] = $request->product_unit_per_rate;
         $data['total_price_without_discount'] = $total_amount;
         $data['discount'] = $request->discount_rate;
@@ -89,33 +94,24 @@ class PurchaseController extends Controller
         $data['date'] = date('d');
         $data['month'] = date('m');
         $data['year'] = date('Y');
+        // dd($data);
         $purchase = Purchase::create($data);
         if ($purchase) {
             $purchase_item = Purchase::where('customer_id', Auth::guard('admin')->user()->id)->latest()->first();
-            $isExists = Product::where('customer_id', Auth::guard('admin')->user()->id)->where('product_code', $purchase_item->product_code)->exists();
-            if ($isExists) {
-                $data = Product::where('customer_id', Auth::guard('admin')->user()->id)->where('product_code', $purchase_item->product_code)->first();
-               $qty = $data->product_unit + $purchase_item->product_unit;
-
-                $data['product_unit'] = $qty;
-                $data['product_unit_per_rate'] = $purchase_item->product_unit_per_rate;
-               $products = $data->save();
-            } else {
+           
                 $data['customer_id'] = Auth::guard('admin')->user()->id;
                 $data['auth_id'] = Auth::guard('admin')->user()->id;
-                $data['category_id'] = $purchase_item->category_id;
+                $data['purchase_voucher_id'] = $purchase_item->purchase_voucher_id;
                 $data['supplier_id'] = $purchase_item->supplier_id;
-                $data['product_name'] = $purchase_item->product_name;
-                $data['product_code'] = $purchase_item->product_code;
-                $data['product_unit'] = $purchase_item->product_unit;
-                $data['product_unit_per_rate'] = $purchase_item->product_unit_per_rate;
+                $data['amount'] = $purchase_item->total_price_after_discount;
+                $data['paid'] = $purchase_item->paid;
+                $data['due'] = $purchase_item->due;
                 $data['date'] = date('d');
                 $data['month'] = date('m');
                 $data['year'] = date('Y');
-                $products = Product::create($data);
+                $payment_voucher = PaymentVoucher::create($data);
             }
-        }
-        if ($products) {
+        if ($payment_voucher) {
             $notification = array('message' => 'Purchase Successfully.', 'alert_type' => 'success');
             return redirect()->route('purchase.index')->with($notification);
         } else {
@@ -168,53 +164,59 @@ class PurchaseController extends Controller
     {
         $cats = Category::where('customer_id', Auth::guard('admin')->user()->id)->get();
         $supplier = Supplier::where('customer_id', Auth::guard('admin')->user()->id)->get();
+        $products = Product::where('customer_id', Auth::guard('admin')->user()->id)->get();
         $purchase = Purchase::where('customer_id', Auth::guard('admin')->user()->id)->where('id', $id)->first();
-        return view('admin.products.purchase.edit', compact('cats', 'supplier', 'purchase'));
+        return view('admin.products.purchase.edit', compact('cats', 'supplier', 'purchase', 'products'));
     }
 
     // Update Product 
     public function update(Request $request)
     {
-        $id = $request->id;
-        $slug = Str::slug($request->product_name, '-');
+        $id = $request->purchase_voucher_id;
+
+        $total_amount = $request->product_quantity * $request->product_unit_per_rate;
+        $discount_amount = ($total_amount * $request->discount_rate) / 100;
+        $total_amount_after_discount = $total_amount - $discount_amount;  
 
         // Using Querybuilder
-        $data = Product::where('customer_id', Auth::guard('admin')->user()->id)->where('id', $id)->first();
-        $data['category_id'] = $request->category_id;
+        $data = Purchase::where('customer_id', Auth::guard('admin')->user()->id)->where('purchase_voucher_id', $id)->first();
         $data['supplier_id'] = $request->supplier_id;
-        $data['product_code'] = $request->product_code;
-        $data['product_name'] = $request->product_name;
-        $data['product_slug'] = Str::slug($request->product_name, '-');
-        $data['product_unit'] = $request->product_unit;
-        $data['purchase_price'] = $request->purchase_price;
-        $data['selling_price'] = $request->selling_price;
-        $data['descount_price'] = $request->descount_price;
+        $data['product_quantity'] = $request->product_quantity;
+        $data['product_unit_per_rate'] = $request->product_unit_per_rate;
+        $data['discount'] = $request->discount_rate;
+        $data['paid'] = $request->paid;
 
-        if ($request->product_thumbnail) {
-            if (File::exists($request->old_image)) {
-                unlink($request->old_image);
-            }
-            $slug = Str::slug($request->product_name, '-');
-            $thumbnail = $request->product_thumbnail;
-            $thumbnail_name = $slug . '.' . $thumbnail->getClientOriginalExtension();
-            $thumbnail->move(public_path('/files/product'), $thumbnail_name);
-            $thumbnail_url = '/files/product/' . $thumbnail_name;
-            $data['product_thumbnail'] = $thumbnail_url;
-        } else {
-            $data['product_thumbnail'] = $request->old_image;
-        }
-        // dd($data);
-        $data->save();
-        $notification = array('message' => 'Product updated successfully.', 'alert_type' => 'success');
-        return redirect()->route('product.index')->with($notification);
+        $data['total_price_without_discount'] = $total_amount;
+        $data['discount_price'] = $discount_amount;
+        $data['total_price_after_discount'] = $total_amount_after_discount;
+        $data['due'] = $total_amount_after_discount - $request->paid;
+
+       $purchaseUpdate = $data->save();
+       if($purchaseUpdate){
+        $purchase_item = Purchase::where('customer_id', Auth::guard('admin')->user()->id)->where('purchase_voucher_id', $id)->first();
+        $data = PaymentVoucher::where('customer_id', Auth::guard('admin')->user()->id)->where('purchase_voucher_id', $purchase_item->purchase_voucher_id)->first();
+        
+        $data['supplier_id'] = $purchase_item->supplier_id;
+        $data['amount'] = $purchase_item->total_price_after_discount;
+        $data['paid'] = $purchase_item->paid;
+        $data['due'] = $purchase_item->due;
+        $payment_voucher = $data->save();
+       }
+       if($payment_voucher){
+           $notification = array('message' => 'Purchase updated successfully.', 'alert_type' => 'success');
+           return redirect()->route('purchase.index')->with($notification);
+    }else{
+           $notification = array('message' => ' Something Went Wrong .', 'alert_type' => 'danger');
+           return redirect()->back()->with($notification);
+       }
     }
 
     // create category 
-    public function destroy($id)
-    {
-        $data = Product::where('customer_id', Auth::guard('admin')->user()->id)->where('id', $id)->first();
-        $data->delete();
-        $notification = array('message' => 'Product deleted successfully.', 'alert_type' => 'danger');
-        return redirect()->route('product.index')->with($notification);
-    }
+    // public function destroy($id)
+    // {
+    //     $data = Product::where('customer_id', Auth::guard('admin')->user()->id)->where('id', $id)->first();
+    //     $data->delete();
+    //     $notification = array('message' => 'Product deleted successfully.', 'alert_type' => 'danger');
+    //     return redirect()->route('product.index')->with($notification);
+    // }
 }

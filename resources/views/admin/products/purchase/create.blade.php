@@ -123,13 +123,11 @@
                             <!-- Form Element sizes -->
                             <div class="card card-success">
                                 <div class="card-body">
-                                    
-
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Discount Rate</label>
-                                            <input type="text" name="product_unit_per_rate"
-                                                value="{{ old('product_unit_per_rate') }}" class="form-control"
+                                            <input type="text" name="discount_rate"
+                                                value="{{ old('discount_rate') }}" class="form-control"
                                                 id="" placeholder="Enter Discount Rate">
                                         </div>
                                     </div>
@@ -171,36 +169,7 @@
             $(this).bootstrapSwitch('state', $(this).prop('checked'));
         });
     </script>
-
-    {{-- Add more inmage upoad  --}}
-    <script>
-        $(document).ready(function() {
-            var postURL = "<?php echo url('addmore'); ?>";
-            var i = 1;
-
-            $('#add').click(function() {
-                i++;
-                $('#dynamic_field').append('<tr id="row' + i +
-                    '" class="dynamic-added"> <td><input type="file" name="images[]" class="form-control name_list" accept="image/*"></td> <td><button type="button" name="remove" id="' +
-                    i + '" class="btn btn-danger btn_remove">X</button></td></tr>');
-            });
-
-            $(document).on('click', '.btn_remove', function() {
-                var button_id = $(this).attr('id');
-                $("#row" + button_id + '').remove();
-            });
-        });
-    </script>
-
-    <script>
-        // from submit loading
-        $('#add-form').on('submit', function() {
-            $('.loader').removeClass('d-none');
-            $('.submit_btn').addClass('d-none');
-        })
-    </script>
-
-    {{-- create child category using ajax  --}}
+    {{-- get product from category wise using ajax  --}}
     <script>
         $(document).ready(function() {
             // get subcategory 
@@ -216,23 +185,7 @@
                     }
                 })
             })
-            //   get childcategory 
-            // $("#subcategory").change(function() {
-            //     let childCatId = $(this).val();
-            //     $("#childcategory").html('<option value="">Select One</option>')
-            //     $.ajax({
-            //         url: '/product/childcategory',
-            //         type: 'post',
-            //         data: 'childCatid=' + childCatId + '&_token={{ csrf_token() }}',
-            //         success: function(result) {
-            //             console.log(result);
-
-            //             $('#childcategory').html(result);
-            //         }
-            //     })
-            // })
-
-
+           
         });
     </script>
 @endsection

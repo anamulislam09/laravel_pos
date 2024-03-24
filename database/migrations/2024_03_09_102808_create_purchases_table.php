@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('auth_id')->nullable();
             $table->integer('supplier_id')->nullable();
             $table->string('purchase_voucher_id');
+            $table->string('category_id');
             $table->string('product_id');
             $table->integer('product_quantity')->nullable();
             $table->decimal('product_unit_per_rate', 13, 2)->nullable();
