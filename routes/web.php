@@ -1,32 +1,13 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\BlanceController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ExpDetailController;
-use App\Http\Controllers\ExpenseController;
-use App\Http\Controllers\ExpProcessController;
-use App\Http\Controllers\FlatController;
-use App\Http\Controllers\IncomeController;
-use App\Http\Controllers\OthersIncomeController;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\PdfGeneratorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
-use App\Http\Controllers\ReportController;
-use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\User\AccountController;
-use App\Http\Controllers\User\ExpenseController as UserExpenseController;
-use App\Http\Controllers\User\FlatController as UserFlatController;
-use App\Http\Controllers\User\IncomeController as UserIncomeController;
-use App\Http\Controllers\User\ReportController as UserReportController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\VoucherController;
-use App\Models\Category;
-use App\Models\CustomerDetail;
-use App\Models\OthersIncome;
 use Illuminate\Support\Facades\Route;
 
 /*---------------- Admin route start here ------------------*/
@@ -108,12 +89,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
     Route::get('/payment/delete/{id}', [PaymentController::class, 'Destroy'])->name('payment.delete');
     //    products route start here 
     //    users route 
-    // Route::get('/users', [UserController::class, 'Index'])->name('users.index');
-    // Route::get('/users/create', [UserController::class, 'Create'])->name('users.create');
-    // Route::post('/users/store', [UserController::class, 'Store'])->name('users.store');
-    // Route::get('/users/edit/{id}', [UserController::class, 'Edit']);
-    // Route::post('/users/update', [UserController::class, 'Update'])->name('users.update');
-    // Route::post('/users/delete', [UserController::class, 'Destroy'])->name('users.delete');
+    Route::get('/users', [UserController::class, 'Index'])->name('users.index');
+    Route::get('/user/create', [UserController::class, 'Create'])->name('user.create');
+    Route::post('/user/store', [UserController::class, 'Store'])->name('user.store');
+    Route::get('/user/edit/{user_id}', [UserController::class, 'Edit']);
+    Route::post('/user/update', [UserController::class, 'Update'])->name('user.update');
+    Route::post('/user/delete', [UserController::class, 'Destroy'])->name('user.delete');
 
     // single users route
     // Route::get('/user/create', [UserController::class, 'SingleCreate'])->name('user.create');

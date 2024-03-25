@@ -207,6 +207,35 @@
                     </li>
                     {{-- Product Management ends here --}}
 
+                    {{-- Users Start here --}}
+                    <li
+                        class="nav-item {{ Request::routeIs('users.index') || Request::routeIs('user.create') || Request::routeIs('user.store') || Request::routeIs('user.edit') || Request::routeIs('user.update') ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-circle"></i>
+                            <p>
+                                Users
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ml-3">
+                            <li class="nav-item">
+                                <a href="{{ route('user.create') }}"
+                                    class="nav-link {{ Request::routeIs('user.create') ? 'active' : '' }}">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>Add New User</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('users.index') }}"
+                                    class="nav-link {{ Request::routeIs('users.index') ? 'active' : '' }}">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>All Users</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{-- Users ends here --}}
+
                   
 
                 @endif

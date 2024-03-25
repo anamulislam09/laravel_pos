@@ -1,13 +1,18 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.6.0/bootstrap-tagsinput.css" />
 
-<form action="{{ route('users.update') }}" method="POST">
+<form action="{{ route('user.update') }}" method="POST">
     @csrf
-    <input type="hidden" name="id" value="{{ $data->id }}">
+    <input type="hidden" name="user_id" value="{{ $data->user_id }}">
     <input type="hidden" name="customer_id" value="{{ $data->customer_id }}">
     <div class="modal-body">
         <div class="mb-3 mt-3">
             <label for="user_name" class="form-label"> User Name:</label>
             <input type="text" class="form-control" value="{{ $data->name }}" name="name">
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="phone" class="form-label"> User Phone:</label>
+            <input type="text" class="form-control" value="{{ $data->phone }}" name="phone">
         </div>
 
         <div class="mb-3 mt-3">

@@ -44,8 +44,8 @@ class PurchaseController extends Controller
                 ->make(true);
         }
 
-         //  <a href="" class="btn btn-sm btn-primary" ><i class="fas fa-eye"></i></a> 
-                    //   <a href="' . route('purchase.delete', [$row->id]) . '"  class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+        //  <a href="" class="btn btn-sm btn-primary" ><i class="fas fa-eye"></i></a> 
+        //   <a href="' . route('purchase.delete', [$row->id]) . '"  class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
 
         $category = Category::where('customer_id', Auth::guard('admin')->user()->id)->get();
         $supplier = Supplier::where('customer_id', Auth::guard('admin')->user()->id)->get();
@@ -67,7 +67,7 @@ class PurchaseController extends Controller
 
         $total_amount = $request->product_quantity * $request->product_unit_per_rate;
         $discount_amount = ($total_amount * $request->discount_rate) / 100;
-        $total_amount_after_discount = $total_amount - $discount_amount;    
+        $total_amount_after_discount = $total_amount - $discount_amount;
 
         $v_id = 1;
         $isExist = Purchase::where('customer_id', Auth::guard('admin')->user()->id)->exists();
@@ -75,20 +75,12 @@ class PurchaseController extends Controller
             $purchase_voucher_id = Purchase::where('customer_id', Auth::guard('admin')->user()->id)->max('purchase_voucher_id');
             $data['purchase_voucher_id'] = $this->formatSrl(++$purchase_voucher_id);
         } else {
-            $data['purchase_voucher_id'] ='PINV-' . $this->formatSrl($v_id);
+            $data['purchase_voucher_id'] = 'PINV-' . $this->formatSrl($v_id);
         }
         $data['customer_id'] = Auth::guard('admin')->user()->id;
         $data['auth_id'] = Auth::guard('admin')->user()->id;
-        $data['category_id'] = $request->category_id;
         $data['supplier_id'] = $request->supplier_id;
-        $data['category_id'] = $request->category_id;
-        $data['product_id'] = $request->product_id;
-        $data['product_quantity'] = $request->product_quantity;
-        $data['product_unit_per_rate'] = $request->product_unit_per_rate;
         $data['total_price_without_discount'] = $total_amount;
-        $data['discount'] = $request->discount_rate;
-        $data['discount_price'] = $discount_amount;
-        $data['total_price_after_discount'] = $total_amount_after_discount;
         $data['paid'] = $request->paid;
         $data['due'] = $total_amount_after_discount - $request->paid;
         $data['date'] = date('d');
@@ -97,20 +89,44 @@ class PurchaseController extends Controller
         // dd($data);
         $purchase = Purchase::create($data);
         if ($purchase) {
-            $purchase_item = Purchase::where('customer_id', Auth::guard('admin')->user()->id)->latest()->first();
-           
-                $data['customer_id'] = Auth::guard('admin')->user()->id;
-                $data['auth_id'] = Auth::guard('admin')->user()->id;
-                $data['purchase_voucher_id'] = $purchase_item->purchase_voucher_id;
-                $data['supplier_id'] = $purchase_item->supplier_id;
-                $data['amount'] = $purchase_item->total_price_after_discount;
-                $data['paid'] = $purchase_item->paid;
-                $data['due'] = $purchase_item->due;
-                $data['date'] = date('d');
-                $data['month'] = date('m');
-                $data['year'] = date('Y');
-                $payment_voucher = PaymentVoucher::create($data);
+            $product = $request->product;
+            $qty = $request->qty;
+            $qty_rate = $request->qty_rate;
+
+            for ($i = 0; $i < count($product); $i++) {
+                Question::insert([
+                    'questions' => $questions[$i],
+                    'remarks' => $remarks[$i],
+                ]);
             }
+            $purchase_item = Purchase::where('customer_id', Auth::guard('admin')->user()->id)->latest()->first();
+            $data['customer_id'] = Auth::guard('admin')->user()->id;
+            $data['auth_id'] = Auth::guard('admin')->user()->id;
+            $data['purchase_voucher_id'] = $purchase_item->purchase_voucher_id;
+            $data['supplier_id'] = $purchase_item->supplier_id;
+            $data['amount'] = $purchase_item->total_price_after_discount;
+            $data['paid'] = $purchase_item->paid;
+            $data['due'] = $purchase_item->due;
+            $data['date'] = date('d');
+            $data['month'] = date('m');
+            $data['year'] = date('Y');
+            $payment_voucher = PaymentVoucher::create($data);
+        }
+        if ($purchase) {
+            $purchase_item = Purchase::where('customer_id', Auth::guard('admin')->user()->id)->latest()->first();
+
+            $data['customer_id'] = Auth::guard('admin')->user()->id;
+            $data['auth_id'] = Auth::guard('admin')->user()->id;
+            $data['purchase_voucher_id'] = $purchase_item->purchase_voucher_id;
+            $data['supplier_id'] = $purchase_item->supplier_id;
+            $data['amount'] = $purchase_item->total_price_after_discount;
+            $data['paid'] = $purchase_item->paid;
+            $data['due'] = $purchase_item->due;
+            $data['date'] = date('d');
+            $data['month'] = date('m');
+            $data['year'] = date('Y');
+            $payment_voucher = PaymentVoucher::create($data);
+        }
         if ($payment_voucher) {
             $notification = array('message' => 'Purchase Successfully.', 'alert_type' => 'success');
             return redirect()->route('purchase.index')->with($notification);
@@ -118,20 +134,30 @@ class PurchaseController extends Controller
             $notification = array('message' => 'Something Went Wrong.', 'alert_type' => 'danger');
             return redirect()->back()->with($notification);
         }
+
+        // $questions = $request->questions;
+        // $remarks = $request->remarks;
+        // for($i=0; $i<count($questions); $i++){
+        //     Question::insert([
+        //         'questions' => $questions[$i],
+        //         'remarks' => $remarks[$i],
+        //     ]);
+        // }
+
     }
 
-     // insert sub category category using ajax request
-     public function GetProduct(Request $request)
-     {
-         $categoryid = $request->post('categoryid');
+    // insert sub category category using ajax request
+    public function GetProduct(Request $request)
+    {
+        $categoryid = $request->post('categoryid');
         //  dd($categoryid);
-         $products = DB::table('products')->where('customer_id', Auth::guard('admin')->user()->id)->where('category_id', $categoryid)->orderBy('product_name', 'ASC')->get();
-         $html = '<option value="" selected disabled>Select One</option>';
-         foreach ($products as $list) {
-             $html .= '<option value="' . $list->product_id . '">' . $list->product_name . '</option>';
-         }
-         echo $html;
-     }
+        $products = DB::table('products')->where('customer_id', Auth::guard('admin')->user()->id)->where('category_id', $categoryid)->orderBy('product_name', 'ASC')->get();
+        $html = '<option value="" selected disabled>Select One</option>';
+        foreach ($products as $list) {
+            $html .= '<option value="' . $list->product_id . '">' . $list->product_name . '</option>';
+        }
+        echo $html;
+    }
 
     // unique id serial function
     public function formatSrl($srl)
@@ -176,7 +202,7 @@ class PurchaseController extends Controller
 
         $total_amount = $request->product_quantity * $request->product_unit_per_rate;
         $discount_amount = ($total_amount * $request->discount_rate) / 100;
-        $total_amount_after_discount = $total_amount - $discount_amount;  
+        $total_amount_after_discount = $total_amount - $discount_amount;
 
         // Using Querybuilder
         $data = Purchase::where('customer_id', Auth::guard('admin')->user()->id)->where('purchase_voucher_id', $id)->first();
@@ -191,24 +217,24 @@ class PurchaseController extends Controller
         $data['total_price_after_discount'] = $total_amount_after_discount;
         $data['due'] = $total_amount_after_discount - $request->paid;
 
-       $purchaseUpdate = $data->save();
-       if($purchaseUpdate){
-        $purchase_item = Purchase::where('customer_id', Auth::guard('admin')->user()->id)->where('purchase_voucher_id', $id)->first();
-        $data = PaymentVoucher::where('customer_id', Auth::guard('admin')->user()->id)->where('purchase_voucher_id', $purchase_item->purchase_voucher_id)->first();
-        
-        $data['supplier_id'] = $purchase_item->supplier_id;
-        $data['amount'] = $purchase_item->total_price_after_discount;
-        $data['paid'] = $purchase_item->paid;
-        $data['due'] = $purchase_item->due;
-        $payment_voucher = $data->save();
-       }
-       if($payment_voucher){
-           $notification = array('message' => 'Purchase updated successfully.', 'alert_type' => 'success');
-           return redirect()->route('purchase.index')->with($notification);
-    }else{
-           $notification = array('message' => ' Something Went Wrong .', 'alert_type' => 'danger');
-           return redirect()->back()->with($notification);
-       }
+        $purchaseUpdate = $data->save();
+        if ($purchaseUpdate) {
+            $purchase_item = Purchase::where('customer_id', Auth::guard('admin')->user()->id)->where('purchase_voucher_id', $id)->first();
+            $data = PaymentVoucher::where('customer_id', Auth::guard('admin')->user()->id)->where('purchase_voucher_id', $purchase_item->purchase_voucher_id)->first();
+
+            $data['supplier_id'] = $purchase_item->supplier_id;
+            $data['amount'] = $purchase_item->total_price_after_discount;
+            $data['paid'] = $purchase_item->paid;
+            $data['due'] = $purchase_item->due;
+            $payment_voucher = $data->save();
+        }
+        if ($payment_voucher) {
+            $notification = array('message' => 'Purchase updated successfully.', 'alert_type' => 'success');
+            return redirect()->route('purchase.index')->with($notification);
+        } else {
+            $notification = array('message' => ' Something Went Wrong .', 'alert_type' => 'danger');
+            return redirect()->back()->with($notification);
+        }
     }
 
     // create category 

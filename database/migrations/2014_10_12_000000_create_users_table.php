@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->integer('customer_id');
             $table->integer('auth_id')->nullable();
-            $table->integer('user_id')->nullable();
+            $table->string('user_id')->nullable();
             $table->string('name');
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->integer('status');
+            $table->string('password')->nullable();
+            $table->integer('status')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
