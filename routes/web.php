@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -95,6 +97,22 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
     Route::get('/user/edit/{user_id}', [UserController::class, 'Edit']);
     Route::post('/user/update', [UserController::class, 'Update'])->name('user.update');
     Route::post('/user/delete', [UserController::class, 'Destroy'])->name('user.delete');
+
+    //    Sales route 
+    Route::get('/sales', [SaleController::class, 'Index'])->name('sales.index');
+    Route::get('/sales/create', [SaleController::class, 'Create'])->name('sales.create');
+    Route::post('/sales/store', [SaleController::class, 'Store'])->name('sales.store');
+    Route::get('/sales/edit/{user_id}', [SaleController::class, 'Edit']);
+    Route::post('/sales/update', [SaleController::class, 'Update'])->name('sales.update');
+    Route::post('/sales/delete', [SaleController::class, 'Destroy'])->name('sales.delete');
+
+    //    Sales route 
+    Route::get('/due-collections', [CollectionController::class, 'Index'])->name('collections.index');
+    Route::get('/collections/create', [CollectionController::class, 'Create'])->name('collections.create');
+    Route::post('/collections/store', [CollectionController::class, 'Store'])->name('collections.store');
+    // Route::get('/sales/edit/{user_id}', [SaleController::class, 'Edit']);
+    Route::get('/generate-invoice/{invoice_id}', [CollectionController::class, 'GenerateInv'])->name('sales.update'); //generate voucher 
+    // Route::post('/sales/delete', [SaleController::class, 'Destroy'])->name('sales.delete');
 
     // single users route
     // Route::get('/user/create', [UserController::class, 'SingleCreate'])->name('user.create');

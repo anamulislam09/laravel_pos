@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
             $table->integer('customer_id');
             $table->integer('auth_id')->nullable();
-            $table->integer('user_id')->nullable();
-            $table->string('sales_collection_id')->default(0);
-            $table->string('sales_invoice_id')->default(0);
+            $table->string('user_id')->nullable();
+            $table->string('due_collection_id')->default(0);
+            $table->string('invoice_id')->default(0);
             $table->decimal('amount', 13, 2)->default(0);
             $table->string('date');
             $table->string('month');
             $table->integer('year');
-            $table->integer('collection_status');
+            $table->integer('collection_status')->default(0);
             $table->timestamps();
         });
     }

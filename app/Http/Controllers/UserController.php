@@ -74,6 +74,7 @@ class UserController extends Controller
 
     public function Update(Request $request)
     {
+        dd($request->status);
         $data = User::where('customer_id', Auth::guard('admin')->user()->id)->where('user_id', $request->user_id)->first();
         $data['name'] = $request->name;
         $data['phone'] = $request->phone;

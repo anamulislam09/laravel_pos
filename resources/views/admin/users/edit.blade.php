@@ -22,8 +22,9 @@
 
         <div class="mb-3 mt-3">
             <h6> Status</h6>
-            <input type="checkbox" name="status" value="1"  @if ( $data->status == 1) checked @endif data-bootstrap-switch
-                data-off-color="danger" data-on-color="success">
+            <input type="checkbox" name="status" value="1" @if ($data->status == 1) checked @endif 
+            data-bootstrap-switch data-off-color="danger" data-on-color="success">
+               
         </div>
 
         {{-- <div class="mb-3 mt-3">

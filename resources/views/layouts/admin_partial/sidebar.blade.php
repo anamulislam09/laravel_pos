@@ -60,35 +60,34 @@
                 @endif
 
                 @if (Auth::guard('admin')->user()->role == 1)
-
-                   {{-- supplier Management Start here --}}
-                   <li
-                   class="nav-item {{ Request::routeIs('supplier.index') || Request::routeIs('supplier.create') || Request::routeIs('supplier.store') || Request::routeIs('supplier.edit') || Request::routeIs('supplier.update') ? 'menu-open' : '' }}">
-                   <a href="#" class="nav-link">
-                       <i class="nav-icon fas fa-circle"></i>
-                       <p>
-                           Suppliers
-                           <i class="right fas fa-angle-left"></i>
-                       </p>
-                   </a>
-                   <ul class="nav nav-treeview ml-3">
-                       <li class="nav-item">
-                           <a href="{{ route('supplier.create') }}"
-                               class="nav-link {{ Request::routeIs('supplier.create') ? 'active' : '' }}">
-                               <i class="far fa-dot-circle nav-icon"></i>
-                               <p>Add New Supplier</p>
-                           </a>
-                       </li>
-                       <li class="nav-item">
-                           <a href="{{ route('supplier.index') }}"
-                               class="nav-link {{ Request::routeIs('supplier.index') ? 'active' : '' }}">
-                               <i class="far fa-dot-circle nav-icon"></i>
-                               <p>All Suppliers</p>
-                           </a>
-                       </li>
-                   </ul>
-               </li>
-               {{-- supplier Management ends here --}}
+                    {{-- supplier Management Start here --}}
+                    <li
+                        class="nav-item {{ Request::routeIs('supplier.index') || Request::routeIs('supplier.create') || Request::routeIs('supplier.store') || Request::routeIs('supplier.edit') || Request::routeIs('supplier.update') ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-circle"></i>
+                            <p>
+                                Suppliers
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ml-3">
+                            <li class="nav-item">
+                                <a href="{{ route('supplier.create') }}"
+                                    class="nav-link {{ Request::routeIs('supplier.create') ? 'active' : '' }}">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>Add New Supplier</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('supplier.index') }}"
+                                    class="nav-link {{ Request::routeIs('supplier.index') ? 'active' : '' }}">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>All Suppliers</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{-- supplier Management ends here --}}
 
                     {{-- CAtegory Management ends here --}}
                     <li
@@ -119,34 +118,34 @@
                     </li>
                     {{-- Category Management ends here --}}
 
-                     {{-- Product Management Start here --}}
-                     <li
-                     class="nav-item {{ Request::routeIs('product.index') || Request::routeIs('product.create') || Request::routeIs('product.store') || Request::routeIs('product.edit') || Request::routeIs('product.update') ? 'menu-open' : '' }}">
-                     <a href="#" class="nav-link">
-                         <i class="nav-icon fas fa-circle"></i>
-                         <p>
-                             Products
-                             <i class="right fas fa-angle-left"></i>
-                         </p>
-                     </a>
-                     <ul class="nav nav-treeview ml-3">
-                         <li class="nav-item">
-                             <a href="{{ route('product.create') }}"
-                                 class="nav-link {{ Request::routeIs('product.create') ? 'active' : '' }}">
-                                 <i class="far fa-dot-circle nav-icon"></i>
-                                 <p>Add New Products</p>
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a href="{{ route('product.index') }}"
-                                 class="nav-link {{ Request::routeIs('product.index') ? 'active' : '' }}">
-                                 <i class="far fa-dot-circle nav-icon"></i>
-                                 <p>All Products</p>
-                             </a>
-                         </li>
-                     </ul>
-                 </li>
-                 {{-- Product Management ends here --}}
+                    {{-- Product Management Start here --}}
+                    <li
+                        class="nav-item {{ Request::routeIs('product.index') || Request::routeIs('product.create') || Request::routeIs('product.store') || Request::routeIs('product.edit') || Request::routeIs('product.update') ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-circle"></i>
+                            <p>
+                                Products
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ml-3">
+                            <li class="nav-item">
+                                <a href="{{ route('product.create') }}"
+                                    class="nav-link {{ Request::routeIs('product.create') ? 'active' : '' }}">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>Add New Products</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('product.index') }}"
+                                    class="nav-link {{ Request::routeIs('product.index') ? 'active' : '' }}">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>All Products</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{-- Product Management ends here --}}
 
                     {{-- Purchase Management Start here --}}
                     <li
@@ -235,9 +234,63 @@
                         </ul>
                     </li>
                     {{-- Users ends here --}}
+                    {{-- Sales Start here --}}
+                    <li
+                        class="nav-item {{ Request::routeIs('sales.index') || Request::routeIs('sales.create') || Request::routeIs('sales.store') || Request::routeIs('sales.edit') || Request::routeIs('sales.update') ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-circle"></i>
+                            <p>
+                                Sales
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ml-3">
+                            <li class="nav-item">
+                                <a href="{{ route('sales.create') }}"
+                                    class="nav-link {{ Request::routeIs('sales.create') ? 'active' : '' }}">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>Add New Sales</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('sales.index') }}"
+                                    class="nav-link {{ Request::routeIs('sales.index') ? 'active' : '' }}">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>All Sales</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{-- Sales ends here --}}
 
-                  
-
+                    {{-- Users Start here --}}
+                    <li
+                        class="nav-item {{ Request::routeIs('collections.index') || Request::routeIs('collections.create') || Request::routeIs('collections.store') || Request::routeIs('collections.edit') || Request::routeIs('collections.update') ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-circle"></i>
+                            <p>
+                                Collections
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ml-3">
+                            <li class="nav-item">
+                                <a href="{{ route('collections.create') }}"
+                                    class="nav-link {{ Request::routeIs('collections.create') ? 'active' : '' }}">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>Create Collection</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('collections.index') }}"
+                                    class="nav-link {{ Request::routeIs('collections.index') ? 'active' : '' }}">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>All Collection</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{-- Users ends here --}}
                 @endif
             </ul>
         </nav>
