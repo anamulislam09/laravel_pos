@@ -16,7 +16,7 @@ class CollectionController extends Controller
 
     public function Index()
     {
-        $collections = Collection::where('customer_id', Auth::guard('admin')->user()->id)->get();
+        $collections = Collection::where('customer_id', Auth::guard('admin')->user()->id)->orderBy('due_collection_id','DESC')->get();
         return view('admin.due_collection.index', compact('collections'));
     }
 

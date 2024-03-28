@@ -78,7 +78,6 @@
                                         </div>
                                     </div>
                                     <hr>
-
                                     <div class="row">
                                         <div class="col-lg-3 col-md-6 col-sm-12">
                                             <div class="form-group">
@@ -158,6 +157,7 @@
                                 <th>Product</th>
                                 <th>Quantity</th>
                                 <th>Rate</th>
+                                <th>Amount</th>
                             </tr>
                         </thead>
                         <tbody class="item-table">
@@ -207,21 +207,52 @@
     </script>
 
     <script type="text/javascript">
+        function getAmount() {
+            //     var qty = $('#product_quantity').val();
+            //     var rate = $('#product_unit_per_rate').val();
+            //     // var total = qty * rate;
+            // $('#amount').val(qty * rate);
+            // alert(total);
+
+            //get the sum of each column of each row
+            // var sum_value = 0;
+            // $('.value').each(function() {
+            //     sum_value += +$(this).val();
+            //     $('#total_value').val(sum_value);
+            // })
+
+            // var sum_rate = 0;
+            // $('.rate').each(function() {
+            //     sum_rate += +$(this).val();
+            //     $('#total_rate').val(sum_rate);
+            // })
+
+            // var sum_amount = 0;
+            // $('.amount').each(function() {
+            //     sum_amount += +$(this).val();
+            //     $('#total_amount').val(sum_amount);
+            // })
+        }
+
         $('#btn-add').on('click', function() {
             var tbody = '';
             product = $('#product').val();
             qty = $('#product_quantity').val();
             qty_rate = $('#product_unit_per_rate').val();
+
+            total = qty * qty_rate;
+            // $('#amount').val(qty * rate);
             // discount_rate = $('#discount_rate').val();
             tbody += '<tr>'
             tbody += '<td class="serial"></td>'
             tbody += '<td>' + product + '</td>'
             tbody += '<td>' + qty + '</td>'
             tbody += '<td>' + qty_rate + '</td>'
-            // tbody += '<td>' + discount_rate + '</td>'
+            tbody += '<td>' + total + '</td>'
             tbody += '<input type="hidden" name="product[]" value="' + product + '" />'
             tbody += '<input type="hidden" name="qty[]" value="' + qty + '" />'
             tbody += '<input type="hidden" name="qty_rate[]" value="' + qty_rate + '" />'
+            tbody += '<input type="hidden" name="amount[]" value="' + total + '" />'
             tbody += '</tr>'
             $('.item-table').append(tbody);
             setSerial();

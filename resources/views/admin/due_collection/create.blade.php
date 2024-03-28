@@ -1,5 +1,4 @@
 @extends('layouts.admin')
-
 @section('admin_content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.6.0/bootstrap-tagsinput.css"
         integrity="sha512-3uVpgbpX33N/XhyD3eWlOgFVAraGn3AfpxywfOTEQeBDByJ/J7HkLvl4mJE1fvArGh4ye1EiPfSBnJo2fgfZmg=="
@@ -15,7 +14,6 @@
             color: white;
             border-radius: 4px
         }
-
         .img {
             font-size: 16px !important;
         }
@@ -49,18 +47,16 @@
                         <div class="card-header ">
                             <div class="row">
                                 <div class="col-lg-10 col-sm-12 pt-2">
-                                    <h3 class="card-title">Add New Sales</h3>
+                                    <h3 class="card-title">Add Due Collection</h3>
                                 </div>
                                 <div class="col-lg-2 col-sm-12">
                                     <a href="{{ route('collections.index') }}" class="btn btn-light text-dark">See all</a>
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <!-- left column -->
                             <div class="col-lg-12">
-
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-lg-4 col-md-12 col-sm-12">
@@ -84,15 +80,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="row">
-                                        <div class="col-lg-4 col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <label for="exampleInputPassword1">Paid Amount</label>
-                                                <input type="text" name="paid" value="{{ old('paid') }}"
-                                                    class="form-control" id="" placeholder="Enter Amount">
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary ml-5">Submit</button>
@@ -134,7 +121,6 @@
                     }
                 })
             })
-
         });
     </script>
 

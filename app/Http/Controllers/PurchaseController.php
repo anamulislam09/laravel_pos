@@ -63,6 +63,7 @@ class PurchaseController extends Controller
 
     public function store(Request $request)
     {
+        dd($request);
         $product = Product::where('customer_id', Auth::guard('admin')->user()->id)->where('product_id', $request->product_id)->first();
 
         $total_amount = $request->product_quantity * $request->product_unit_per_rate;
@@ -93,12 +94,12 @@ class PurchaseController extends Controller
             $qty = $request->qty;
             $qty_rate = $request->qty_rate;
 
-            for ($i = 0; $i < count($product); $i++) {
-                Question::insert([
-                    'questions' => $questions[$i],
-                    'remarks' => $remarks[$i],
-                ]);
-            }
+            // for ($i = 0; $i < count($product); $i++) {
+            //     Question::insert([
+            //         'questions' => $questions[$i],
+            //         'remarks' => $remarks[$i],
+            //     ]);
+            // }
             $purchase_item = Purchase::where('customer_id', Auth::guard('admin')->user()->id)->latest()->first();
             $data['customer_id'] = Auth::guard('admin')->user()->id;
             $data['auth_id'] = Auth::guard('admin')->user()->id;
